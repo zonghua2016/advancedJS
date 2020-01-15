@@ -89,13 +89,13 @@
 
 // 在泛型约束中使用类型参数
 {
-    function getProperty(obj: T, key: K) {
+    function getProperty<T, K extends keyof T>(obj: T, key: K) {
         return obj[key];
     }
     let x = { a: 1, b: 2, c: 3, d: 4 };
 
     getProperty(x, "a"); // okay
-    getProperty(x, "m"); // error
+    getProperty(x, "m"); // error: 类型“"m"”的参数不能赋给类型“"a" | "b" | "c" | "d"”的参数
 }
 
 // 在泛型里使用类类型
@@ -165,7 +165,6 @@
     declare namespace demo02 {
         class GenericNumber<T> {
             private value: T;
-
             public add: (x: T, y: T) => T
         }
     }
@@ -181,7 +180,6 @@
 
 
 // 描述数组
-
 {
     interface Array<T> {
         length: number,
